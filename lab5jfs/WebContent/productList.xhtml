@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+xmlns:h="http://java.sun.com/jsf/html"
+xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+	<h:outputStylesheet labrary="css" name="style.css"></h:outputStylesheet>
+</h:head>
+<h:body>
+<h:dataTable value="#{productData.products}" var="p" styleClass="productTable"
+  headerClass="productTableHeader" rowClasses="productTableOddRow,productTableEvenRow">
+  
+   <h:column> 				
+      <f:facet name="header">ID</f:facet>
+      <h:inputText value="#{p.id}" rendered="#{p.canEdit}"></h:inputText>    				
+        <h:outputText value="#{p.id}" rendered="#{not p.canEdit}"></h:outputText>
+   </h:column>
+   
+   <h:column> 				
+      <f:facet name="header">Name</f:facet>
+      <h:inputText value="#{p.name}" rendered="#{p.canEdit}"></h:inputText>    				
+        <h:outputText value="#{p.name}" rendered="#{not p.canEdit}"></h:outputText>
+   </h:column>
+   
+   <h:column>
+      <f:facet name="header">Category</f:facet>
+      <h:inputText value="#{p.category}" rendered="#{p.canEdit}"></h:inputText>
+      <h:outputText value="#{p.category}" rendered="#{not p.canEdit}"></h:outputText>
+   </h:column>
+   
+   <h:column>
+   <h:inputText value="#{p.price}" rendered="#{p.canEdit}"></h:inputText>
+   <h:outputText value="#{p.price}" rendered="#{not p.canEdit}"></h:outputText>
+      <f:facet name="header">Price</f:facet>   
+   </h:column>
+   
+   <h:column>
+           <f:facet name="header">Edit</f:facet>
+               <h:commandButton value="Edit"  action="#{productData.editProduct}" 
+                  rendered="#{not p.canEdit}">        
+                  <f:setPropertyActionListener 
+                     target="#{productData.p}" value="#{p}" />
+               </h:commandButton>
+       </h:column>
+</h:dataTable>
+ <br/>
+	<h:commandButton value="Save Product"
+          action="#{productData.saveProduct}" />	 
+<hr></hr>
+<h:form>
+<table>
+<tr>
+<td>Id</td><td><h:inputText value="#{productData.id}"></h:inputText></td>
+</tr>
+<tr>
+<td>Product Name:</td><td><h:inputText value="#{productData.name}"></h:inputText></td>
+</tr>
+<tr>
+<td>Category</td><td><h:inputText value="#{productData.category}"></h:inputText></td>
+</tr>
+<tr>
+<td>Price</td><td><h:inputText value="#{productData.price}"></h:inputText></td>
+</tr>
+<tr>
+<td><h:commandButton action="#{productData.addProduct}" value="Add Product"></h:commandButton></td>
+</tr>
+</table>
+</h:form>
+</h:body>
+</html>
